@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Phonebook</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_save_person">Save contact</string>
+    <string name="enter_name_hint">Enter name</string>
+    <string name="enter_number">Enter number</string>
+    <string name="btn_save_contact">Save contact</string>
+    <string name="text_database_data">Get phone by name results</string>
+    <string name="btn_get_phone_by_name">get phone by name</string>
 </resources>

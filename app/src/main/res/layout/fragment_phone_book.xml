@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/frosted_mint"
+    tools:context=".view.MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#8D8D8D"
+        android:backgroundTint="@color/purple"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_title_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:text="@string/title_save_person"
+            android:textColor="@color/purple"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edit_enter_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple"
+            android:hint="@string/enter_name_hint"
+            android:textColorHint="@color/ash"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_title_save"
+            android:autofillHints="no"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/edit_enter_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:hint="@string/enter_number"
+            android:textColorHint="@color/ash"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_enter_name"
+            android:autofillHints="no"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/btn_save_contact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_enter_phone"
+            android:text="@string/btn_save_contact"/>
+
+        <TextView
+            android:id="@+id/text_response_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="- - -"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/purple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_save_contact" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title_get_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_database_data"
+            android:textColor="@color/finn"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnReadLogin" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="- - -"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:padding="10dp"
+            android:textColor="@color/finn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_get_phone" />
+
+        <TextView
+            android:id="@+id/tv_phone_result"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="- - -"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:padding="10dp"
+            android:textColor="@color/finn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_result" />
+
+        <Button
+            android:id="@+id/btnReadLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:backgroundTint="@color/finn"
+            android:text="@string/btn_get_phone_by_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_read_response"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:text="- - -"
+            android:textColor="@color/finn"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_result" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

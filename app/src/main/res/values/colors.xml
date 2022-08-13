@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple">#820B8A</color>
+    <color name="frosted_mint">#D5FFF3</color>
+    <color name="jagged_ice">#C7EDE4</color>
+    <color name="amethyst_smoke">#AF9AB2</color>
+    <color name="finn">#672A4E</color>
+    <color name="ash">#bfc7c4</color>
 </resources>
