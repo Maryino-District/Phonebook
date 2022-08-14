@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Contact")
-data class Contact(
+data class ContactTableModel(
     @ColumnInfo(name = "name")
     var name: String,
 
@@ -13,5 +13,5 @@ data class Contact(
     var phoneNumber: String,
 
     @PrimaryKey(autoGenerate = true)
-    var contactId: Int? = null
+    var contactId: Int? = null,
 )

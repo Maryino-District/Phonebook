@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.phonebook.Data.Entity.Contact
+import com.example.phonebook.Data.Entity.ContactTableModel
 
 
-@Database(entities = [Contact::class], version = 1)
+@Database(entities = [ContactTableModel::class], version = 1)
 abstract class ContactDatabase : RoomDatabase() {
 
     abstract fun contactDao(): ContactDao
