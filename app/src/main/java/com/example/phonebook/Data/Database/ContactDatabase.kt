@@ -19,7 +19,7 @@ abstract class ContactDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(this) {
                     INSTANCE = Room
-                        .databaseBuilder(context.applicationContext, ContactDatabase::class.java, "ContactDatabase")
+                        .databaseBuilder(context.applicationContext, ContactDatabase::class.java, "CONTACT_DATABASE")
                         .build()
                 }
             }
