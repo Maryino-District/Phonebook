@@ -1,21 +1,24 @@
 package com.example.phonebook.Data.Repositories.Contacts
 
-import com.example.phonebook.Domain.Contact
-import com.example.phonebook.Domain.ContactRepository
-import kotlinx.coroutines.flow.Flow
+import com.example.phonebook.Data.Entity.ContactTableModel
+import com.example.phonebook.Data.Mappers.EntityContactMapper
+import com.example.phonebook.Domain.Entity.Contact
+import com.example.phonebook.Domain.Repositories.ContactRepository
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 
 class ContactRepository(
-    private val localDataSource: LocalDataSource
+    private val localDataSource: LocalDataSource,
+    private val mapper: EntityContactMapper = EntityContactMapper()
 ) : ContactRepository {
-    override suspend fun insertContact(contact: Contact) {
-        localDataSource.insertEntityInDb()
+
+    override fun insertContact(contact: Contact): Completable {
+        return localDataSource.insertEntityInDb(mapper.toContactTableModel(contact))
     }
 
-    override fun getContact(name: String) {
-        localDataSource.getSingleEntityFromDb()
+    override fun getContact(number: String): Maybe<Contact> {
+        return localDataSource.getSingleEntityFromDb(number)
+            .map { mapper.toDomainContactModel(it) }
     }
 
-    override fun getAllContacts() {
-        localDataSource.getAllEntitiesFromDb()
-    }
 }

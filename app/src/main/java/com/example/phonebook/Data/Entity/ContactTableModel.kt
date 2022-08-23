@@ -9,9 +9,7 @@ data class ContactTableModel(
     @ColumnInfo(name = "name")
     var name: String,
 
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "phoneNumber")
     var phoneNumber: String,
-
-    @PrimaryKey(autoGenerate = true)
-    var contactId: Int? = null,
 )
