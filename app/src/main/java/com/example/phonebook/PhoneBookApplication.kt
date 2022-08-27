@@ -10,10 +10,8 @@ class PhoneBookApplications : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        context = this.applicationContext
+        ContactDatabase.initialize(this)
     }
-@SuppressLint("StaticFieldLeak")
-companion object {
-    lateinit var context: Context
-}
+
+
 }

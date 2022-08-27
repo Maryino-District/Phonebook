@@ -15,7 +15,7 @@ abstract class ContactDatabase : RoomDatabase() {
     companion object {
         private var INSTANCE: ContactDatabase? = null
 
-        fun getInstance(context: Context) : ContactDatabase {
+        fun initialize(context: Context) : ContactDatabase {
             if (INSTANCE == null) {
                 synchronized(this) {
                     INSTANCE = Room
@@ -24,6 +24,10 @@ abstract class ContactDatabase : RoomDatabase() {
                 }
             }
             return INSTANCE!!
+        }
+
+        fun get() : ContactDatabase? {
+            return INSTANCE
         }
 
         fun destroyInstance() {

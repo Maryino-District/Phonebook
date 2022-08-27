@@ -15,9 +15,9 @@ import io.reactivex.rxjava3.core.Maybe
 class ContactsLocalDataSource(
 ) : LocalDataSource {
 
-
-    private val db = ContactDatabase.getInstance(PhoneBookApplications.context)
-    private var dao: ContactDao = db.contactDao()
+ //   private val context = PhoneBookApplications.getInstance().applicationContext
+    private val db = ContactDatabase.get()
+    private var dao: ContactDao = db!!.contactDao()
 
     override fun getSingleEntityFromDb(primaryKey: String) : Maybe<ContactTableModel> {
         return dao.getContact(primaryKey)

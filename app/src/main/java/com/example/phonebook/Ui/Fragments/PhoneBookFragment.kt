@@ -48,8 +48,7 @@ class PhoneBook : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        db = ContactDatabase.getInstance(requireContext())
-        dao = db.contactDao()
+
 
 
         binding = FragmentPhoneBookBinding.inflate(layoutInflater)
