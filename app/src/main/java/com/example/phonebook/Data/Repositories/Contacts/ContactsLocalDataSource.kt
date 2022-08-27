@@ -15,7 +15,6 @@ import io.reactivex.rxjava3.core.Maybe
 class ContactsLocalDataSource(
 ) : LocalDataSource {
 
- //   private val context = PhoneBookApplications.getInstance().applicationContext
     private val db = ContactDatabase.get()
     private var dao: ContactDao = db!!.contactDao()
 

@@ -7,11 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.phonebook.Data.Database.ContactDao
 import com.example.phonebook.Data.Database.ContactDatabase
 import com.example.phonebook.Data.Entity.ContactTableModel
 import com.example.phonebook.Domain.Entity.Contact
+import com.example.phonebook.Domain.Usecases.GetContactUseCase
+import com.example.phonebook.Domain.Usecases.SaveContactUseCase
 import com.example.phonebook.PhoneBookApplications
+import com.example.phonebook.Ui.Viewmodels.ContactViewModelFactory
 import com.example.phonebook.Ui.Viewmodels.ContactsViewModel
 import com.example.phonebook.databinding.FragmentPhoneBookBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -22,19 +27,19 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PhoneBook.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class PhoneBook : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var binding: FragmentPhoneBookBinding? = null
-    val contactViewModel: ContactsViewModel by viewModels()
-    private  lateinit var db: ContactDatabase
-    private lateinit var dao: ContactDao
+    private val contactViewModel: ContactsViewModel by viewModels {
+        ContactViewModelFactory(GetContactUseCase(), SaveContactUseCase())
+    }
+    //    private val contactViewModel: ContactsViewModel by viewModels {
+//        ContactViewModelFactory(GetContactUseCase(), SaveContactUseCase())
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,9 +53,7 @@ class PhoneBook : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-
+        
         binding = FragmentPhoneBookBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding!!.root
@@ -59,34 +62,23 @@ class PhoneBook : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
+        contactViewModel.uiState.observe(this.viewLifecycleOwner, Observer {
+            binding!!.tvNameResult.text = it.foundedName
+            binding!!.tvPhoneResult.text = it.foundedPhone
+        })
     }
 
     private fun initListeners() {
         binding?.btnSaveContact?.setOnClickListener {
             binding?.run {
-                val textPhone = editEnterPhone.text
-                val textName = editEnterName.text
-
-                 contactViewModel.saveContact(Contact(textName.toString(), textPhone.toString()))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({Toast.makeText(requireContext(), "Saved", Toast.LENGTH_LONG).show()},
-                        {Toast.makeText(requireContext(), "blya", Toast.LENGTH_LONG).show()})
+                val textPhone = editEnterPhone.text.toString()
+                val textName = editEnterName.text.toString()
+                 contactViewModel.saveContact(Contact(textName, textPhone))
             }
 
         }
         binding?.btnReadLogin?.setOnClickListener {
            contactViewModel.getContactByNumber(binding!!.editEnterPhone.text.toString())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    Toast.makeText(context,"YAHOO", Toast.LENGTH_LONG)
-                    binding!!.run {
-                        tvNameResult.text = it.name
-                        tvPhoneResult.text = it.phoneNumber
-                    }
-                },{Toast.makeText(requireContext(), "hz", Toast.LENGTH_LONG).show()})
-
         }
 
     }
