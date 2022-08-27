@@ -6,10 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.phonebook.Data.Mappers.EntityContactMapper
-import com.example.phonebook.Data.Repositories.Contacts.ContactRepository
-import com.example.phonebook.Data.Repositories.Contacts.ContactsLocalDataSource
+import androidx.fragment.app.viewModels
+import com.example.phonebook.Data.Database.ContactDao
+import com.example.phonebook.Data.Database.ContactDatabase
+import com.example.phonebook.Data.Entity.ContactTableModel
 import com.example.phonebook.Domain.Entity.Contact
+import com.example.phonebook.PhoneBookApplications
+import com.example.phonebook.Ui.Viewmodels.ContactsViewModel
 import com.example.phonebook.databinding.FragmentPhoneBookBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -29,10 +32,12 @@ class PhoneBook : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var binding: FragmentPhoneBookBinding? = null
-
-
+    val contactViewModel: ContactsViewModel by viewModels()
+    private  lateinit var db: ContactDatabase
+    private lateinit var dao: ContactDao
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
 //            param1 = it.getString(ARG_PARAM1)
 //            param2 = it.getString(ARG_PARAM2)
@@ -43,6 +48,10 @@ class PhoneBook : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        db = ContactDatabase.getInstance(requireContext())
+        dao = db.contactDao()
+
+
         binding = FragmentPhoneBookBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
         return binding!!.root
@@ -50,37 +59,35 @@ class PhoneBook : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
+    }
+
+    private fun initListeners() {
         binding?.btnSaveContact?.setOnClickListener {
             binding?.run {
                 val textPhone = editEnterPhone.text
                 val textName = editEnterName.text
-                val contactRepository = ContactRepository(ContactsLocalDataSource(
-                    EntityContactMapper(),
-                    requireContext()
-                ))
-                contactRepository.insertContact(Contact(12, ContactInformation("Name", "892222")))
+
+                 contactViewModel.saveContact(Contact(textName.toString(), textPhone.toString()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        Toast.makeText(requireContext(), "ddd", Toast.LENGTH_LONG).show()
-                    }
-
-
+                    .subscribe({Toast.makeText(requireContext(), "Saved", Toast.LENGTH_LONG).show()},
+                        {Toast.makeText(requireContext(), "blya", Toast.LENGTH_LONG).show()})
             }
+
         }
         binding?.btnReadLogin?.setOnClickListener {
-            Toast.makeText(requireContext(),"ddd", Toast.LENGTH_LONG).show()
-            ContactRepository(
-                ContactsLocalDataSource(
-                EntityContactMapper(),
-                requireContext()
-            ))
-                .getContact(Contact(12, ContactInformation("Name", "892222")))
+           contactViewModel.getContactByNumber(binding!!.editEnterPhone.text.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    binding?.tvNameResult?.text = it.name
-                }
+                .subscribe({
+                    Toast.makeText(context,"YAHOO", Toast.LENGTH_LONG)
+                    binding!!.run {
+                        tvNameResult.text = it.name
+                        tvPhoneResult.text = it.phoneNumber
+                    }
+                },{Toast.makeText(requireContext(), "hz", Toast.LENGTH_LONG).show()})
+
         }
 
     }

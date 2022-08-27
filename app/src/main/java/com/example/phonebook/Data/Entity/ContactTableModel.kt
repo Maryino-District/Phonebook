@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Contact")
 data class ContactTableModel(
-    @ColumnInfo(name = "name")
-    var name: String,
-
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey
     @ColumnInfo(name = "phoneNumber")
     var phoneNumber: String,
+
+    @ColumnInfo(name = "name")
+    var name: String,
 )

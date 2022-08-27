@@ -43,12 +43,13 @@ dependencies {
     // RxJava
     kapt "androidx.room:room-compiler:$room_version"
     kapt "android.arch.persistence.room:compiler:1.1.1"
-    implementation 'androidx.room:room-rxjava3:2.4.2'
+    implementation 'androidx.room:room-rxjava3:2.4.3'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
     implementation 'com.google.android.material:material:1.6.1'
     // To use Kotlin annotation processing tool (kapt)
     // ViewModel
+    implementation "androidx.fragment:fragment-ktx:1.5.2"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"

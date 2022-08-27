@@ -1,5 +1,6 @@
 package com.example.phonebook.Data.Repositories.Contacts
 
+import android.content.Context
 import com.example.phonebook.Data.Entity.ContactTableModel
 import com.example.phonebook.Data.Mappers.EntityContactMapper
 import com.example.phonebook.Domain.Entity.Contact
@@ -8,7 +9,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 
 class ContactRepository(
-    private val localDataSource: LocalDataSource,
+    private val localDataSource: LocalDataSource = ContactsLocalDataSource(),
     private val mapper: EntityContactMapper = EntityContactMapper()
 ) : ContactRepository {
 
